@@ -8,8 +8,10 @@ public class GameGenerator : MonoBehaviour
     public GameObject finish;
     public Vector2 startHeightLength;
     public Vector2 finishHeightLength;
-    public float startSize;
-    public float finishSize;
+    public Transform startStartPosition;
+    public Transform startEndPosition;
+    public Transform finishStartPosition;
+    public Transform finishEndPosition;
     public float requiredDistance;
     public string generatedTag;
 
@@ -23,12 +25,9 @@ public class GameGenerator : MonoBehaviour
         GenerateGame();
     }
 
-    private float PickRandomPosition(float width)
+    private float PickRandomPosition(Transform startPosition, Transform endPosition)
     {
-        float divSize = width / 2;
-        return Random.Range(transform.position.x - divSize, transform.position.x + divSize);
-        //float width = space.bounds.extents.x / 2;
-        //return Random.Range(transform.position.x - width, transform.position.x + width);
+        return Random.Range(startPosition.position.x, endPosition.position.x);
     }
 
     public void GenerateGame()
@@ -38,8 +37,8 @@ public class GameGenerator : MonoBehaviour
         Vector3 generatedFinishPosition = Vector3.zero;
         while (distance < requiredDistance)
         {
-            generatedStartPosition = new Vector3(PickRandomPosition(startSize), startHeightLength.x, startHeightLength.y);
-            generatedFinishPosition = new Vector3(PickRandomPosition(finishSize), finishHeightLength.x, finishHeightLength.y);
+            generatedStartPosition = new Vector3(PickRandomPosition(startStartPosition, startEndPosition), startHeightLength.x, startHeightLength.y);
+            generatedFinishPosition = new Vector3(PickRandomPosition(finishStartPosition, finishEndPosition), finishHeightLength.x, finishHeightLength.y);
 
             distance = Mathf.Abs(generatedStartPosition.x - generatedFinishPosition.x);
         }
