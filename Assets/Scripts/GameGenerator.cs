@@ -8,8 +8,8 @@ public class GameGenerator : MonoBehaviour
     public GameObject finish;
     public Vector2 startHeightLength;
     public Vector2 finishHeightLength;
-    public Collider startSpawnBounds;
-    public Collider finishSpawnBounds;
+    public float startSize;
+    public float finishSize;
     public float requiredDistance;
     public string generatedTag;
 
@@ -23,23 +23,30 @@ public class GameGenerator : MonoBehaviour
         GenerateGame();
     }
 
-    private float PickRandomPosition(Collider space)
+    private float PickRandomPosition(float width)
     {
-        return Random.Range(transform.position.x - (space.bounds.size.x / 2), transform.position.x + (space.bounds.size.x / 2));
+        float divSize = width / 2;
+        return Random.Range(transform.position.x - divSize, transform.position.x + divSize);
+        //float width = space.bounds.extents.x / 2;
+        //return Random.Range(transform.position.x - width, transform.position.x + width);
     }
 
     public void GenerateGame()
     {
         float distance = 0.0f;
+        Vector3 generatedStartPosition = Vector3.zero;
+        Vector3 generatedFinishPosition = Vector3.zero;
         while (distance < requiredDistance)
         {
-            generatedStart = Instantiate(start, new Vector3(PickRandomPosition(startSpawnBounds), startHeightLength.x, startHeightLength.y), Quaternion.identity);
-            generatedFinish = Instantiate(finish, new Vector3(PickRandomPosition(finishSpawnBounds), finishHeightLength.x, finishHeightLength.y), Quaternion.identity);
+            generatedStartPosition = new Vector3(PickRandomPosition(startSize), startHeightLength.x, startHeightLength.y);
+            generatedFinishPosition = new Vector3(PickRandomPosition(finishSize), finishHeightLength.x, finishHeightLength.y);
 
-            generatedStart.tag = generatedTag;
-            generatedFinish.tag = generatedTag;
-
-            distance = Mathf.Abs(generatedStart.transform.position.x - generatedFinish.transform.position.x);
+            distance = Mathf.Abs(generatedStartPosition.x - generatedFinishPosition.x);
         }
+        generatedStart = Instantiate(start, generatedStartPosition, Quaternion.identity);
+        generatedFinish = Instantiate(finish, generatedFinishPosition, Quaternion.identity);
+
+        generatedStart.tag = generatedTag;
+        generatedFinish.tag = generatedTag;
     }
 }
