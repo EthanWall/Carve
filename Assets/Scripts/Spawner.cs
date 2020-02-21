@@ -5,12 +5,10 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject objectToBeSpawned;
+    public string generatedTag;
 
-    void Update()
+    public void Spawn()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Instantiate(objectToBeSpawned, transform.position, Quaternion.identity);
-        }
+        Instantiate(objectToBeSpawned, transform.position, Quaternion.identity).tag = generatedTag;
     }
 }

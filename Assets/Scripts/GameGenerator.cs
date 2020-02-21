@@ -11,6 +11,12 @@ public class GameGenerator : MonoBehaviour
     public Collider startSpawnBounds;
     public Collider finishSpawnBounds;
     public float requiredDistance;
+    public string generatedTag;
+
+    [HideInInspector]
+    public GameObject generatedStart;
+    [HideInInspector]
+    public GameObject generatedFinish;
 
     void Start()
     {
@@ -27,10 +33,13 @@ public class GameGenerator : MonoBehaviour
         float distance = 0.0f;
         while (distance < requiredDistance)
         {
-            GameObject newStart = Instantiate(start, new Vector3(PickRandomPosition(startSpawnBounds), startHeightLength.x, startHeightLength.y), Quaternion.identity);
-            GameObject newFinish = Instantiate(finish, new Vector3(PickRandomPosition(finishSpawnBounds), finishHeightLength.x, finishHeightLength.y), Quaternion.identity);
+            generatedStart = Instantiate(start, new Vector3(PickRandomPosition(startSpawnBounds), startHeightLength.x, startHeightLength.y), Quaternion.identity);
+            generatedFinish = Instantiate(finish, new Vector3(PickRandomPosition(finishSpawnBounds), finishHeightLength.x, finishHeightLength.y), Quaternion.identity);
 
-            distance = Mathf.Abs(newStart.transform.position.x - newFinish.transform.position.x);
+            generatedStart.tag = generatedTag;
+            generatedFinish.tag = generatedTag;
+
+            distance = Mathf.Abs(generatedStart.transform.position.x - generatedFinish.transform.position.x);
         }
     }
 }

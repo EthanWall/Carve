@@ -96,3 +96,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToBeSpawned: {fileID: 7614967648983956746, guid: fff6ddadef196ae438a76b975ac80d9e,
     type: 3}
+  generatedTag: Temporary
