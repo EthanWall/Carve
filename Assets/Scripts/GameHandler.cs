@@ -52,4 +52,9 @@ public class GameHandler : MonoBehaviour
         // Regenerate objects
         voxelGenerator.GenerateVoxels();
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
