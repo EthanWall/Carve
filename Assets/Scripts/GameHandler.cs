@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ButtonHandler : MonoBehaviour
+public class GameHandler : MonoBehaviour
 {
     public string generatedTag;
     public string temporaryTag;

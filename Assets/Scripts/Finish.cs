@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
+    public GameHandler gameHandler;
+
     void OnCollisionEnter(Collision other)
     {
-        print("Finish!");
-        Destroy(other.gameObject);
+        gameHandler.Restart();
     }
 }

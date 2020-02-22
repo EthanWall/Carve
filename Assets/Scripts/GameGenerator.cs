@@ -8,10 +8,12 @@ public class GameGenerator : MonoBehaviour
     public GameObject finish;
     public Vector2 startHeightLength;
     public Vector2 finishHeightLength;
-    public Transform startStartPosition;
-    public Transform startEndPosition;
-    public Transform finishStartPosition;
-    public Transform finishEndPosition;
+    //public Transform startStartPosition;
+    //public Transform startEndPosition;
+    //public Transform finishStartPosition;
+    //public Transform finishEndPosition;
+    public Collider startSpawnArea;
+    public Collider finishSpawnArea;
     public float requiredDistance;
     public string generatedTag;
 
@@ -25,10 +27,18 @@ public class GameGenerator : MonoBehaviour
         GenerateGame();
     }
 
+    /*private Vector3 PickRandomPosition(Collider space)
+    {
+        float x = Random.Range(space.transform.position.x - space.bounds.extents.x, space.transform.position.x + space.bounds.extents.x);
+        float y = Random.Range(space.transform.position.y - space.bounds.extents.y, space.transform.position.y + space.bounds.extents.y);
+        float z = Random.Range(space.transform.position.z - space.bounds.extents.z, space.transform.position.z + space.bounds.extents.z);
+        return new Vector3(x, y, z);
+    }
+
     private float PickRandomPosition(Transform startPosition, Transform endPosition)
     {
         return Random.Range(startPosition.position.x, endPosition.position.x);
-    }
+    }*/
 
     public void GenerateGame()
     {
@@ -37,8 +47,10 @@ public class GameGenerator : MonoBehaviour
         Vector3 generatedFinishPosition = Vector3.zero;
         while (distance < requiredDistance)
         {
-            generatedStartPosition = new Vector3(PickRandomPosition(startStartPosition, startEndPosition), startHeightLength.x, startHeightLength.y);
-            generatedFinishPosition = new Vector3(PickRandomPosition(finishStartPosition, finishEndPosition), finishHeightLength.x, finishHeightLength.y);
+            //generatedStartPosition = new Vector3(PickRandomPosition(startStartPosition, startEndPosition), startHeightLength.x, startHeightLength.y);
+            //generatedFinishPosition = new Vector3(PickRandomPosition(finishStartPosition, finishEndPosition), finishHeightLength.x, finishHeightLength.y);
+            generatedStartPosition = new Vector3(Utils.PickRandomPosition1D(startSpawnArea), startHeightLength.x, startHeightLength.y);
+            generatedFinishPosition = new Vector3(Utils.PickRandomPosition1D(finishSpawnArea), finishHeightLength.x, finishHeightLength.y);
 
             distance = Mathf.Abs(generatedStartPosition.x - generatedFinishPosition.x);
         }
