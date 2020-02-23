@@ -6,6 +6,7 @@ public class GameGenerator : MonoBehaviour
 {
     public GameObject start;
     public GameObject finish;
+    public GameObject coin;
     public Vector2 startHeightLength;
     public Vector2 finishHeightLength;
     //public Transform startStartPosition;
@@ -14,7 +15,9 @@ public class GameGenerator : MonoBehaviour
     //public Transform finishEndPosition;
     public Collider startSpawnArea;
     public Collider finishSpawnArea;
+    public Collider coinSpawnArea;
     public float requiredDistance;
+    public float coinCount;
     public string generatedTag;
 
     [HideInInspector]
@@ -42,6 +45,7 @@ public class GameGenerator : MonoBehaviour
 
     public void GenerateGame()
     {
+        // Start and Finish
         float distance = 0.0f;
         Vector3 generatedStartPosition = Vector3.zero;
         Vector3 generatedFinishPosition = Vector3.zero;
@@ -59,5 +63,12 @@ public class GameGenerator : MonoBehaviour
 
         generatedStart.tag = generatedTag;
         generatedFinish.tag = generatedTag;
+
+        // Coins
+        for (int i = 0; i < coinCount; i++)
+        {
+            Vector2 coinSpawnPosition = Utils.PickRandomPosition2D(coinSpawnArea);
+            Instantiate(coin, new Vector3(coinSpawnPosition.x, coinSpawnPosition.y, 0.0f), Quaternion.identity).tag = generatedTag;
+        }
     }
 }

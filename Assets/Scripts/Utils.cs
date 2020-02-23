@@ -12,8 +12,16 @@ public static class Utils
         return new Vector3(x, y, z);
     }
 
+    public static Vector2 PickRandomPosition2D(Collider space)
+    {
+        float x = Random.Range(space.transform.position.x - space.bounds.extents.x, space.transform.position.x + space.bounds.extents.x);
+        float y = Random.Range(space.transform.position.y - space.bounds.extents.y, space.transform.position.y + space.bounds.extents.y);
+        return new Vector2(x, y);
+    }
+
     public static float PickRandomPosition1D(Collider space)
     {
-        return Random.Range(space.transform.position.x - space.bounds.extents.x, space.transform.position.x + space.bounds.extents.x);
+        float x = Random.Range(space.transform.position.x - space.bounds.extents.x, space.transform.position.x + space.bounds.extents.x);
+        return x;
     }
 }
